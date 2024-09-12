@@ -16,7 +16,7 @@ const Page = () => {
                 <h2 class="text-2xl font-bold mb-4">Destinataires</h2>
                 
                 <div className="px-32">
-                    <div class="bg-white shadow-md rounded-lg p-6 mb-8 mx-32">
+                    <div class="bg-white shadow-md rounded-lg p-6 mb-8 mx-32 border border-black">
                         <h3 class="text-xl font-semibold mb-4">Ajouter un destinataire</h3>
                         <form class="space-y-4">
                         <div>
@@ -40,7 +40,7 @@ const Page = () => {
 
                 <div>
                     <h3 class="text-xl font-semibold mb-2">Liste des destinataires</h3>
-                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden border border-black">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                         <tr>
