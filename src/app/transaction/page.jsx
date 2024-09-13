@@ -1,12 +1,41 @@
-'use client'
-import React, { useState } from 'react'
-import Header from '../components/header'
+'use client';
+import React, { useState } from 'react';
+import Header from '../components/header';
 
 const Page = () => {
     const [trans, setTrans] = useState([
-        { id: 1, date: '2023-05-01', montant: 1000, expediteur: 'Alice Dupont', destinataire: 'Eva Roux', statut: 'Complété' },
-        { id: 2, date: '2023-05-02', montant: 500, expediteur: 'Bob Martin', destinataire: 'Frank Petit', statut: 'En cours' },
-    ])
+        { id: 1, date: '2023-05-01', montant: 1000, nomBeneficiaire: 'Eva Roux', telBeneficiaire: '0123456789', nomClient: 'Alice Dupont', telClient: '0987654321', statut: 'Complété' },
+        { id: 2, date: '2023-05-02', montant: 500, nomBeneficiaire: 'Frank Petit', telBeneficiaire: '0234567890', nomClient: 'Bob Martin', telClient: '0876543210', statut: 'En cours' },
+    ]);
+
+    const [nouvelleTransaction, setNouvelleTransaction] = useState({
+        montant: '',
+        nomBeneficiaire: '',
+        telBeneficiaire: '',
+        nomClient: '',
+        telClient: '',
+    });
+
+    const handleInputChange = (e) => {
+        const { id, value } = e.target;
+        setNouvelleTransaction({ ...nouvelleTransaction, [id]: value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Add logic to submit the new transaction
+        console.log(nouvelleTransaction);
+
+        // Example: Add the new transaction to the list (assuming an ID is generated elsewhere)
+        setTrans([...trans, { ...nouvelleTransaction, id: trans.length + 1, date: new Date().toISOString().split('T')[0], statut: 'En cours' }]);
+        setNouvelleTransaction({
+            montant: '',
+            nomBeneficiaire: '',
+            telBeneficiaire: '',
+            nomClient: '',
+            telClient: '',
+        });
+    };
 
     return (
         <div>
@@ -14,83 +43,122 @@ const Page = () => {
 
             <div className='px-32 py-20 pt-5'>
                 <div className="px-32">
-                    <h2 class="text-2xl font-bold mb-4">Transactions</h2>
-                    <div class="bg-white shadow-md rounded-lg p-6 mb-8">
-                        <h3 class="text-xl font-semibold mb-4">Ajouter une transaction</h3>
-                        <form class="space-y-4">
-                        <div>
-                            <label for="montant" class="block text-sm font-medium text-gray-700">Montant</label>
-                            <input type="number" id="montant" v-model="nouvelleTransaction.montant" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
-                        </div>
-                        <div>
-                            <label for="expediteur" class="block text-sm font-medium text-gray-700">Expéditeur</label>
-                            <input type="text" id="expediteur" v-model="nouvelleTransaction.expediteur" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
-                        </div>
-                        <div>
-                            <label for="destinataire" class="block text-sm font-medium text-gray-700">Destinataire</label>
-                            <input type="text" id="destinataire" v-model="nouvelleTransaction.destinataire" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
-                        </div>
-                        <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            Ajouter la transaction
-                        </button>
+                    <h2 className="text-2xl font-bold mb-4">Transactions</h2>
+                    <div className="bg-white shadow-md rounded-lg p-6 mb-8">
+                        <h3 className="text-xl font-semibold mb-4">Ajouter une transaction</h3>
+                        <form className="space-y-4" onSubmit={handleSubmit}>
+                            <div>
+                                <label htmlFor="montant" className="block text-sm font-medium text-gray-700">Montant</label>
+                                <input
+                                    type="number"
+                                    id="montant"
+                                    value={nouvelleTransaction.montant}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="nomBeneficiaire" className="block text-sm font-medium text-gray-700">Nom bénéficiaire</label>
+                                <input
+                                    type="text"
+                                    id="nomBeneficiaire"
+                                    value={nouvelleTransaction.nomBeneficiaire}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="telBeneficiaire" className="block text-sm font-medium text-gray-700">Téléphone bénéficiaire</label>
+                                <input
+                                    type="tel"
+                                    id="telBeneficiaire"
+                                    value={nouvelleTransaction.telBeneficiaire}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="nomClient" className="block text-sm font-medium text-gray-700">Nom client</label>
+                                <input
+                                    type="text"
+                                    id="nomClient"
+                                    value={nouvelleTransaction.nomClient}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="telClient" className="block text-sm font-medium text-gray-700">Téléphone client</label>
+                                <input
+                                    type="tel"
+                                    id="telClient"
+                                    value={nouvelleTransaction.telClient}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                            >
+                                Ajouter la transaction
+                            </button>
                         </form>
                     </div>
                 </div>
 
                 <div>
-                    <h3 class="text-xl font-semibold mb-2">Liste des transactions</h3>
-                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Montant</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expéditeur</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Destinataire</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
-                        </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200 text-sm">
-                            {trans.map((tran) => (
-                                <tr key={tran.id}>
-                                    <td className="px-6 py-2 whitespace-nowrap">{tran.date}</td>
-                                    <td className="px-6 py-2 whitespace-nowrap">{tran.montant}</td>
-                                    <td className="px-6 py-2 whitespace-nowrap">{tran.expediteur}</td>
-                                    <td className="px-6 py-2 whitespace-nowrap">{tran.destinataire}</td>
-                                    <td className="px-6 py-2 whitespace-nowrap">
-                                    <span className=
-                                       {(   tran.statut == 'Complété'
-                                            ? 'bg-green-100 text-green-800' // Condition 1
-                                            : tran.statut == 'En cours'
-                                            ? 'bg-yellow-100 text-yellow-800' // Condition 2
-                                            : 'bg-red-100 text-red-800'    // Else (si aucune condition précédente n'est vraie)
-                                        ) + " px-2 inline-flex text-xs leading-5 font-semibold rounded-full" }
-                                          
-                                    >
-                                        { tran.statut }
-                                    </span>
-                                    </td>
+                    <h3 className="text-xl font-semibold mb-2">Liste des transactions</h3>
+                    <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                        <table className="min-w-full divide-y divide-gray-200">
+                            <thead className="bg-gray-50">
+                                <tr>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Montant</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom bénéficiaire</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Téléphone bénéficiaire</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom client</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Téléphone client</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
                                 </tr>
-                            ))}
-
-                            {/* <tr v-for="transaction in transactions" >
-                                <td class="px-6 py-4 whitespace-nowrap">{{ transaction.date }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ transaction.montant }} €</td>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ transaction.expediteur }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ transaction.destinataire }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                <span className="{'bg-green-100 text-green-800': transaction.statut === 'Complété', 'bg-yellow-100 text-yellow-800': transaction.statut === 'En cours', 'bg-red-100 text-red-800': transaction.statut === 'Annulé'}" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
-                                    {{ transaction.statut }}
-                                </span>
-                                </td>
-                            </tr> */}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200 text-sm">
+                                {trans.map((tran) => (
+                                    <tr key={tran.id}>
+                                        <td className="px-6 py-2 whitespace-nowrap">{tran.date}</td>
+                                        <td className="px-6 py-2 whitespace-nowrap">{tran.montant} €</td>
+                                        <td className="px-6 py-2 whitespace-nowrap">{tran.nomBeneficiaire}</td>
+                                        <td className="px-6 py-2 whitespace-nowrap">{tran.telBeneficiaire}</td>
+                                        <td className="px-6 py-2 whitespace-nowrap">{tran.nomClient}</td>
+                                        <td className="px-6 py-2 whitespace-nowrap">{tran.telClient}</td>
+                                        <td className="px-6 py-2 whitespace-nowrap">
+                                            <span
+                                                className={
+                                                    (tran.statut === 'Complété'
+                                                        ? 'bg-green-100 text-green-800'
+                                                        : tran.statut === 'En cours'
+                                                        ? 'bg-yellow-100 text-yellow-800'
+                                                        : 'bg-red-100 text-red-800') +
+                                                    " px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                                                }
+                                            >
+                                                {tran.statut}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </div>          
-        )
-}
+        </div>
+    );
+};
 
-export default Page
+export default Page;

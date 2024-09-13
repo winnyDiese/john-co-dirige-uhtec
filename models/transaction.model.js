@@ -9,6 +9,22 @@ const TransactionSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
+    nomBeneficiaire: {
+        type: String,
+        required: true,
+    },
+    telBeneficiaire: {
+        type: String,
+        required: true,
+    },
+    nomClient: {
+        type: String,
+        required: true,
+    },
+    telClient: {
+        type: String,
+        required: true,
+    },
     description: {
         type: String,
         required: false,
