@@ -1,7 +1,6 @@
 // pages/api/client.js
 
 import dbConnect from '../../../utils/dbConnect';
-// import Client from '../../models/Client';
 import Client from '../../../models/client.model';
 
 export default async function handler(req, res) {
