@@ -83,7 +83,7 @@ const Page = () => {
             {/* Add Agent Form */}
             <div className="bg-white shadow-md rounded-lg p-6 mb-8">
             <h3 className="text-xl font-semibold mb-4">Ajouter un agent</h3>
-            <form className="space-y-4" onSubmit={handleSubmit}>
+            <form className="space-y-4 text-sm" onSubmit={handleSubmit}>
                 <div>
                 <label htmlFor="nom" className="block text-sm font-medium text-gray-700">
                     Nom

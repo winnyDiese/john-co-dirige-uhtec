@@ -10,7 +10,7 @@ const Header = () => {
                 Déconnexion
             </button>
         </div>
-        <nav class="mt-4" v-if="isAuthenticated">
+        <nav class="mt-4" v-if="isAuthenticated text-sm">
             <Link href="/agent" class="mr-4 hover:underline">Agents</Link>
             <Link href="/client" class="mr-4 hover:underline">Clients</Link>
             <Link href="/destinataire" class="mr-4 hover:underline">Destinataires</Link>
