@@ -26,6 +26,21 @@ const Page = () => {
     fetchClients();
   }, []);
 
+  
+  const formatDateTime = (date) => {
+    const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false // Utilisez true pour le format 12 heures
+    };
+    return new Date(date).toLocaleString(undefined, options);
+};
+
+
   return (
     <div>
       <Header />
@@ -54,7 +69,7 @@ const Page = () => {
                     <tr key={client._id}> {/* Utilisez `_id` comme clé unique */}
                         <td className="px-6 py-2 whitespace-nowrap">{client.nomBeneficiaire}</td>
                         <td className="px-6 py-2 whitespace-nowrap">{client.telBeneficiaire}</td>
-                        <td className="px-6 py-2 whitespace-nowrap">{client.createdAt}</td>
+                        <td className="px-6 py-2 whitespace-nowrap">{formatDateTime(client.createdAt)}</td>
                     </tr>
                 ))}
               </tbody>
