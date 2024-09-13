@@ -156,7 +156,7 @@ const Page = () => {
                 </div>
 
                 <div>
-                    <h3 className="text-4xl font-semibold mb-2">Liste des transactions</h3>
+                    <h3 className="text-xl font-semibold mb-2">Liste des transactions</h3>
                     <div className="bg-white shadow-md rounded-lg overflow-hidden">
                         <table className="min-w-full divide-y divide-gray-200">
                             <thead className="bg-gray-50">
