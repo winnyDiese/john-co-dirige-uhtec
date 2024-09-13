@@ -6,7 +6,45 @@ const Page = () => {
   const [clients, setClients] = useState([
     { id: 1, nom: 'Alice Dupont', telephone: '0123456789' },
     { id: 2, nom: 'Bob Martin', telephone: '0987654321' },
-  ])
+  ]);
+
+  // États pour le formulaire
+  const [nom, setNom] = useState('');
+  const [telephone, setTelephone] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  // Fonction pour gérer l'ajout de client
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+
+    const newClient = { nom, telephone };
+
+    try {
+      const res = await fetch('/api/client', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newClient),
+      });
+
+      if (res.ok) {
+        const savedClient = await res.json();
+        setClients((prevClients) => [...prevClients, savedClient]);
+        setSuccess('Client ajouté avec succès');
+        // Réinitialiser le formulaire
+        setNom('');
+        setTelephone('');
+      } else {
+        throw new Error('Erreur lors de l\'ajout du client');
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   return (
     <div>
@@ -18,7 +56,11 @@ const Page = () => {
           <h2 className="text-2xl font-bold mb-4">Clients</h2>
           <div className="bg-white shadow-md rounded-lg p-6 mb-8 border border-slate-400">
             <h3 className="text-xl font-semibold mb-4">Ajouter un client</h3>
-            <form className="space-y-4">
+            
+            {error && <p className="text-red-500">{error}</p>}
+            {success && <p className="text-green-500">{success}</p>}
+            
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Nom
@@ -26,14 +68,15 @@ const Page = () => {
                 <input
                   type="text"
                   id="nom"
-                  v-model="nouveauClient.nom"
+                  value={nom}
+                  onChange={(e) => setNom(e.target.value)}
                   required
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
               <div>
                 <label
-                  for="telephone"
+                  htmlFor="telephone"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Téléphone
@@ -41,7 +84,8 @@ const Page = () => {
                 <input
                   type="tel"
                   id="telephone"
-                  v-model="nouveauClient.telephone"
+                  value={telephone}
+                  onChange={(e) => setTelephone(e.target.value)}
                   required
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -86,4 +130,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default Page;
