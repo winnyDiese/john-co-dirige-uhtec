@@ -13,49 +13,52 @@ const Page = () => {
       <Header />
 
       <div className='px-32 py-20 pt-5'>
-        <h2 className="text-2xl font-bold mb-4">Clients</h2>
-        <div className="bg-white shadow-md rounded-lg p-6 mb-8">
-          <h3 className="text-xl font-semibold mb-4">Ajouter un client</h3>
-          <form className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Nom
-              </label>
-              <input
-                type="text"
-                id="nom"
-                v-model="nouveauClient.nom"
-                required
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <div>
-              <label
-                for="telephone"
-                className="block text-sm font-medium text-gray-700"
+
+        <div className="px-32">
+          <h2 className="text-2xl font-bold mb-4">Clients</h2>
+          <div className="bg-white shadow-md rounded-lg p-6 mb-8 border border-slate-400">
+            <h3 className="text-xl font-semibold mb-4">Ajouter un client</h3>
+            <form className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Nom
+                </label>
+                <input
+                  type="text"
+                  id="nom"
+                  v-model="nouveauClient.nom"
+                  required
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label
+                  for="telephone"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Téléphone
+                </label>
+                <input
+                  type="tel"
+                  id="telephone"
+                  v-model="nouveauClient.telephone"
+                  required
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
-                Téléphone
-              </label>
-              <input
-                type="tel"
-                id="telephone"
-                v-model="nouveauClient.telephone"
-                required
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              Ajouter le client
-            </button>
-          </form>
+                Ajouter le client
+              </button>
+            </form>
+          </div>
         </div>
 
         <div className='mt-10'>
           <h3 className="text-xl font-semibold mb-2">Liste des clients</h3>
-          <div className="bg-white shadow-md rounded-lg overflow-hidden">
+          <div className="bg-white shadow-md rounded-lg overflow-hidden border border-slate-400">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
