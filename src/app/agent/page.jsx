@@ -74,50 +74,53 @@ const Page = () => {
       <Header />
 
       <div className="px-32 py-20 pt-5">
-        <h2 className="text-2xl font-bold mb-4">Agents</h2>
+        <div className="px-64">
+            <h2 className="text-2xl font-bold mb-4">Agents</h2>
 
-        {/* Error Message */}
-        {error && <div className="text-red-500 mb-4">{error}</div>}
+            {/* Error Message */}
+            {error && <div className="text-red-500 mb-4">{error}</div>}
 
-        {/* Add Agent Form */}
-        <div className="bg-white shadow-md rounded-lg p-6 mb-8">
-          <h3 className="text-xl font-semibold mb-4">Ajouter un agent</h3>
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="nom" className="block text-sm font-medium text-gray-700">
-                Nom
-              </label>
-              <input
-                type="text"
-                id="nom"
-                value={nouvelAgent.nom}
-                onChange={handleInputChange}
-                required
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
+            {/* Add Agent Form */}
+            <div className="bg-white shadow-md rounded-lg p-6 mb-8">
+            <h3 className="text-xl font-semibold mb-4">Ajouter un agent</h3>
+            <form className="space-y-4" onSubmit={handleSubmit}>
+                <div>
+                <label htmlFor="nom" className="block text-sm font-medium text-gray-700">
+                    Nom
+                </label>
+                <input
+                    type="text"
+                    id="nom"
+                    value={nouvelAgent.nom}
+                    onChange={handleInputChange}
+                    required
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+                </div>
+                <div>
+                <label htmlFor="telephone" className="block text-sm font-medium text-gray-700">
+                    Téléphone
+                </label>
+                <input
+                    type="tel"
+                    id="telephone"
+                    value={nouvelAgent.telephone}
+                    onChange={handleInputChange}
+                    required
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+                </div>
+                <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                >
+                {loading ? 'Adding...' : 'Ajouter l\'agent'}
+                </button>
+            </form>
             </div>
-            <div>
-              <label htmlFor="telephone" className="block text-sm font-medium text-gray-700">
-                Téléphone
-              </label>
-              <input
-                type="tel"
-                id="telephone"
-                value={nouvelAgent.telephone}
-                onChange={handleInputChange}
-                required
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              {loading ? 'Adding...' : 'Ajouter l\'agent'}
-            </button>
-          </form>
         </div>
+
 
         {/* Agent List */}
         <div>

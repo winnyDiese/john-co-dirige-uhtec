@@ -72,7 +72,7 @@ const Page = () => {
 
       <div className='px-32 py-20 pt-5'>
 
-        <div className="px-32">
+        <div className="px-64">
           <h2 className="text-2xl font-bold mb-4">Clients</h2>
           <div className="bg-white shadow-md rounded-lg p-6 mb-8 border border-slate-400">
             <h3 className="text-xl font-semibold mb-4">Ajouter un client</h3>

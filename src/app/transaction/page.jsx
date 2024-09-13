@@ -46,7 +46,7 @@ const Page = () => {
             const result = await response.json();
             if (response.ok) {
                 // Ajouter la nouvelle transaction à la liste
-                setTrans([...trans, { ...nouvelleTransaction, id: trans.length + 1, date: new Date().toISOString().split('T')[0], statut: 'En cours' }]);
+                // setTrans([...trans, { ...nouvelleTransaction, id: trans.length + 1, date: new Date().toISOString().split('T')[0], statut: 'En cours' }]);
                 setNouvelleTransaction({
                     montant: '',
                     nomBeneficiaire: '',
@@ -54,6 +54,10 @@ const Page = () => {
                     nomClient: '',
                     telClient: '',
                 });
+
+                // Reload the current page
+                window.location.reload();
+
             } else {
                 console.error('Error adding transaction:', result.message);
             }
@@ -62,12 +66,25 @@ const Page = () => {
         }
     };
 
+    const formatDateTime = (date) => {
+        const options = { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false // Utilisez true pour le format 12 heures
+        };
+        return new Date(date).toLocaleString(undefined, options);
+    };
+
     return (
         <div>
             <Header />
 
-            <div className='px-32 py-20 pt-5'>
-                <div className="px-32">
+            <div className='px-10 py-20 pt-5'>
+                <div className="px-64">
                     <h2 className="text-2xl font-bold mb-4">Transactions</h2>
                     <div className="bg-white shadow-md rounded-lg p-6 mb-8">
                         <h3 className="text-xl font-semibold mb-4">Ajouter une transaction</h3>
@@ -149,13 +166,13 @@ const Page = () => {
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Téléphone bénéficiaire</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom client</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Téléphone client</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+                                    {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th> */}
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200 text-sm">
                                 {trans.map((tran) => (
                                     <tr key={tran._id}> {/* Utiliser `_id` si c'est la clé primaire MongoDB */}
-                                        <td className="px-6 py-2 whitespace-nowrap">{tran.date}</td>
+                                        <td className="px-6 py-2 whitespace-nowrap">{formatDateTime(tran.createdAt)}</td>
                                         <td className="px-6 py-2 whitespace-nowrap">{tran.montant} €</td>
                                         <td className="px-6 py-2 whitespace-nowrap">{tran.nomBeneficiaire}</td>
                                         <td className="px-6 py-2 whitespace-nowrap">{tran.telBeneficiaire}</td>
