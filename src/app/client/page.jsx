@@ -50,6 +50,11 @@ const Page = () => {
         const savedClient = await res.json();
         setClients((prevClients) => [...prevClients, savedClient]);
         setSuccess('Client ajouté avec succès');
+
+        // Reload the current page
+        window.location.reload();
+
+
         // Réinitialiser le formulaire
         setNom('');
         setTelephone('');
