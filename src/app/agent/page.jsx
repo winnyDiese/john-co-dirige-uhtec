@@ -75,7 +75,7 @@ const Page = () => {
 
       <div className="px-32 py-20 pt-5">
         <div className="px-64">
-            <h2 className="text-2xl font-bold mb-4">Agents</h2>
+            <h2 className="text-3xl font-bold mb-4">AGENTS</h2>
 
             {/* Error Message */}
             {error && <div className="text-red-500 mb-4">{error}</div>}
@@ -137,11 +137,11 @@ const Page = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-gray-200 text-sm">
                 {agents.map((agent) => (
                   <tr key={agent.id}>
-                    <td className="px-6 py-4 whitespace-nowrap">{agent.nom}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{agent.telephone}</td>
+                    <td className="px-6 py-2 whitespace-nowrap">{agent.nom}</td>
+                    <td className="px-6 py-2 whitespace-nowrap">{agent.telephone}</td>
                   </tr>
                 ))}
               </tbody>

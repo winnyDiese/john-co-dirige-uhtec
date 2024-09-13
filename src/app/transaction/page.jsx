@@ -86,7 +86,7 @@ const Page = () => {
 
             <div className='px-10 py-20 pt-5'>
                 <div className="px-64">
-                    <h2 className="text-2xl font-bold mb-4">Transactions</h2>
+                    <h2 className="text-3xl font-bold mb-4">TRANSACTIONS</h2>
                     <div className="bg-white shadow-md rounded-lg p-6 mb-8">
                         <h3 className="text-xl font-semibold mb-4">Ajouter une transaction</h3>
                         <form className="space-y-4" onSubmit={handleSubmit}>
@@ -156,7 +156,7 @@ const Page = () => {
                 </div>
 
                 <div>
-                    <h3 className="text-xl font-semibold mb-2">Liste des transactions</h3>
+                    <h3 className="text-4xl font-semibold mb-2">Liste des transactions</h3>
                     <div className="bg-white shadow-md rounded-lg overflow-hidden">
                         <table className="min-w-full divide-y divide-gray-200">
                             <thead className="bg-gray-50">
