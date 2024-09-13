@@ -18,12 +18,11 @@ export async function GET() {
 export async function POST(req) {
     try {
         // Extraire les données du corps de la requête
-        const { montant, date, nomBeneficiaire, telBeneficiaire, nomClient, telClient, description } = await req.json();
+        const { montant, nomBeneficiaire, telBeneficiaire, nomClient, telClient, description } = await req.json();
 
         // Créer une nouvelle transaction avec les données reçues
         const newTransaction = await Transaction.create({
             montant,
-            date,
             nomBeneficiaire,
             telBeneficiaire,
             nomClient,

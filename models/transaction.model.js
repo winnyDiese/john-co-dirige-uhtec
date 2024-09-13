@@ -5,10 +5,6 @@ const TransactionSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    date: {
-        type: Date,
-        required: true,
-    },
     nomBeneficiaire: {
         type: String,
         required: true,
