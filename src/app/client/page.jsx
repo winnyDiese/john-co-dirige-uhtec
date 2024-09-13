@@ -26,7 +26,7 @@ const Page = () => {
     fetchClients();
   }, []);
 
-  
+
   const formatDateTime = (date) => {
     const options = { 
         year: 'numeric', 
