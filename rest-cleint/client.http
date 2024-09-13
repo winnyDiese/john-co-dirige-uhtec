@@ -1,4 +1,15 @@
 
 
+
+POST http://localhost:3000/api/client
+Content-Type: application/json
+
+{
+  "nom": "Jean Dupuis",
+  "telephone": "0123456789"
+}
+
+##
+
 GET http://localhost:3000/api/client
 

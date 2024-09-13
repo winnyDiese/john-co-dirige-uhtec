@@ -11,7 +11,6 @@ export async function GET() {
     return NextResponse.json( {agents} , { status: 200 })
 }
 
-
 export async function POST(req) {
     try {
       // Extraction des données du body de la requête
