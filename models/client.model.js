@@ -11,12 +11,6 @@ const clientSchema = new mongoose.Schema({
     required: true,
     unique: true, // Assure que le numéro de téléphone soit unique
     trim: true,
-    validate: {
-      validator: function(v) {
-        return /\d{10}/.test(v); // Validation simple pour un numéro de téléphone à 10 chiffres
-      },
-      message: props => `${props.value} n'est pas un numéro de téléphone valide !`
-    },
   },
   createdAt: {
     type: Date,

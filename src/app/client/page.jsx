@@ -1,18 +1,33 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../components/header'
 
 const Page = () => {
-  const [clients, setClients] = useState([
-    { id: 1, nom: 'Alice Dupont', telephone: '0123456789' },
-    { id: 2, nom: 'Bob Martin', telephone: '0987654321' },
-  ]);
-
-  // États pour le formulaire
+  const [clients, setClients] = useState([]);
   const [nom, setNom] = useState('');
   const [telephone, setTelephone] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  // Fonction pour récupérer les clients depuis l'API
+  const fetchClients = async () => {
+    try {
+      const res = await fetch('/api/client');
+      if (res.ok) {
+        const data = await res.json();
+        setClients(data.agents); // Ajustez si la structure des données est différente
+      } else {
+        throw new Error('Erreur lors de la récupération des clients');
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  // Appel de fetchClients lorsque le composant est monté
+  useEffect(() => {
+    fetchClients();
+  }, []);
 
   // Fonction pour gérer l'ajout de client
   const handleSubmit = async (e) => {
@@ -116,7 +131,7 @@ const Page = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {clients.map((client) => (
-                    <tr key={client.id}>
+                    <tr key={client._id}> {/* Utilisez `_id` comme clé unique */}
                         <td className="px-6 py-4 whitespace-nowrap">{client.nom}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{client.telephone}</td>
                     </tr>
