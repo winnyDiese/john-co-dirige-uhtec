@@ -48,7 +48,7 @@ const Page = () => {
         // Update the list of agents with the newly added one
         setAgents([...agents, newAgent]);
         // Reset the form fields
-        setNouvelAgent({ nom: '', telephone: '', email: '' });
+        setNouvelAgent({ nom: '', email: '' });
       } else {
         const errorData = await response.json();
         setError(errorData.message || 'Error adding agent');
@@ -89,19 +89,6 @@ const Page = () => {
                 type="text"
                 id="nom"
                 value={nouvelAgent.nom}
-                onChange={handleInputChange}
-                required
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={nouvelAgent.email}
                 onChange={handleInputChange}
                 required
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
