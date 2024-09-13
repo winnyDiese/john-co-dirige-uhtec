@@ -1,67 +1,69 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../components/header'
 
 const Page = () => {
-  const [agents, setagents] = useState([
-    { id: 1, nom: 'Alice Dupont', telephone: '0123456789' },
-    { id: 2, nom: 'Bob Martin', telephone: '0987654321' },
-  ])
+  const [clients, setClients] = useState([]);
+  
 
-    return (
-        <div>
-            <Header />
+  // Fonction pour récupérer les clients depuis l'API
+  const fetchClients = async () => {
+    try {
+      const res = await fetch('/api/transaction');
+      if (res.ok) {
+        const data = await res.json();
+        setClients(data.transactions); // Ajustez si la structure des données est différente
+      } else {
+        throw new Error('Erreur lors de la récupération des clients');
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
-            <div className='px-32 py-20 pt-5'>
-                <h2 class="text-2xl font-bold mb-4">Destinataires</h2>
-                
-                <div className="px-32">
-                    <div class="bg-white shadow-md rounded-lg p-6 mb-8 mx-32 border border-black">
-                        <h3 class="text-xl font-semibold mb-4">Ajouter un destinataire</h3>
-                        <form class="space-y-4">
-                        <div>
-                            <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
-                            <input type="text" id="nom" v-model="nouveauDestinataire.nom" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="email" id="email" v-model="nouveauDestinataire.email" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
-                        </div>
-                        <div>
-                            <label for="telephone" class="block text-sm font-medium text-gray-700">Téléphone</label>
-                            <input type="tel" id="telephone" v-model="nouveauDestinataire.telephone" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
-                        </div>
-                        <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            Ajouter le destinataire
-                        </button>
-                        </form>
-                    </div>
-                </div>
+  // Appel de fetchClients lorsque le composant est monté
+  useEffect(() => {
+    fetchClients();
+  }, []);
 
-                <div>
-                    <h3 class="text-xl font-semibold mb-2">Liste des destinataires</h3>
-                    <div class="bg-white shadow-md rounded-lg overflow-hidden border border-black">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Téléphone</th>
-                        </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            {agents.map((agent) => (
-                                <tr key={agent.id}>
-                                    <td className="px-6 py-4 whitespace-nowrap">{agent.nom}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{agent.telephone}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
-            </div>  
-        </div>          
-        )
+  return (
+    <div>
+      <Header />
+
+      <div className='px-64 py-20 pt-5'>
+
+        <div className='mt-'>
+          <h3 className="text-xl font-semibold mb-2">Liste des beneficiaires</h3>
+          <div className="bg-white shadow-md rounded-lg overflow-hidden border border-slate-400">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Nom
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Téléphone
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Date
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200 text-sm">
+                {clients.map((client) => (
+                    <tr key={client._id}> {/* Utilisez `_id` comme clé unique */}
+                        <td className="px-6 py-2 whitespace-nowrap">{client.nomBeneficiaire}</td>
+                        <td className="px-6 py-2 whitespace-nowrap">{client.telBeneficiaire}</td>
+                        <td className="px-6 py-2 whitespace-nowrap">{client.createdAt}</td>
+                    </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
-export default Page
+export default Page;
