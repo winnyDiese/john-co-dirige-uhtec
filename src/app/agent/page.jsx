@@ -71,7 +71,6 @@ const Page = () => {
 
   return (
     <div>
-      <Header />
 
       <div className="px-32 py-20 pt-5">
         <div className="px-64">

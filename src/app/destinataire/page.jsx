@@ -43,7 +43,6 @@ const Page = () => {
 
   return (
     <div>
-      <Header />
 
       <div className='px-64 py-20 pt-5'>
 
