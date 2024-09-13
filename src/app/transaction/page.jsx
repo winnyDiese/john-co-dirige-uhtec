@@ -1,13 +1,9 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/header';
 
 const Page = () => {
-    const [trans, setTrans] = useState([
-        { id: 1, date: '2023-05-01', montant: 1000, nomBeneficiaire: 'Eva Roux', telBeneficiaire: '0123456789', nomClient: 'Alice Dupont', telClient: '0987654321', statut: 'Complété' },
-        { id: 2, date: '2023-05-02', montant: 500, nomBeneficiaire: 'Frank Petit', telBeneficiaire: '0234567890', nomClient: 'Bob Martin', telClient: '0876543210', statut: 'En cours' },
-    ]);
-
+    const [trans, setTrans] = useState([]);
     const [nouvelleTransaction, setNouvelleTransaction] = useState({
         montant: '',
         nomBeneficiaire: '',
@@ -16,25 +12,54 @@ const Page = () => {
         telClient: '',
     });
 
+    useEffect(() => {
+        // Fonction pour récupérer les transactions depuis l'API
+        const fetchTransactions = async () => {
+            try {
+                const response = await fetch('/api/transaction'); // Remplacez par le bon chemin vers votre API
+                const data = await response.json();
+                setTrans(data.transactions); // Assurez-vous que `data.transactions` contient bien la liste des transactions
+            } catch (error) {
+                console.error('Error fetching transactions:', error);
+            }
+        };
+
+        fetchTransactions();
+    }, []);
+
     const handleInputChange = (e) => {
         const { id, value } = e.target;
         setNouvelleTransaction({ ...nouvelleTransaction, [id]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Add logic to submit the new transaction
-        console.log(nouvelleTransaction);
-
-        // Example: Add the new transaction to the list (assuming an ID is generated elsewhere)
-        setTrans([...trans, { ...nouvelleTransaction, id: trans.length + 1, date: new Date().toISOString().split('T')[0], statut: 'En cours' }]);
-        setNouvelleTransaction({
-            montant: '',
-            nomBeneficiaire: '',
-            telBeneficiaire: '',
-            nomClient: '',
-            telClient: '',
-        });
+        // Envoyer la nouvelle transaction à l'API
+        try {
+            const response = await fetch('/api/transaction', { // Remplacez par le bon chemin vers votre API
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(nouvelleTransaction),
+            });
+            const result = await response.json();
+            if (response.ok) {
+                // Ajouter la nouvelle transaction à la liste
+                setTrans([...trans, { ...nouvelleTransaction, id: trans.length + 1, date: new Date().toISOString().split('T')[0], statut: 'En cours' }]);
+                setNouvelleTransaction({
+                    montant: '',
+                    nomBeneficiaire: '',
+                    telBeneficiaire: '',
+                    nomClient: '',
+                    telClient: '',
+                });
+            } else {
+                console.error('Error adding transaction:', result.message);
+            }
+        } catch (error) {
+            console.error('Error adding transaction:', error);
+        }
     };
 
     return (
@@ -129,7 +154,7 @@ const Page = () => {
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200 text-sm">
                                 {trans.map((tran) => (
-                                    <tr key={tran.id}>
+                                    <tr key={tran._id}> {/* Utiliser `_id` si c'est la clé primaire MongoDB */}
                                         <td className="px-6 py-2 whitespace-nowrap">{tran.date}</td>
                                         <td className="px-6 py-2 whitespace-nowrap">{tran.montant} €</td>
                                         <td className="px-6 py-2 whitespace-nowrap">{tran.nomBeneficiaire}</td>
