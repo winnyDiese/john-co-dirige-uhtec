@@ -45,8 +45,10 @@ const Page = () => {
 
       if (response.ok) {
         const newAgent = await response.json();
-        // Update the list of agents with the newly added one
-        setAgents([...agents, newAgent]);
+
+        // Reload the current page
+        window.location.reload();
+
         // Reset the form fields
         setNouvelAgent({ nom: '', email: '' });
       } else {
