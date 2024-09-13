@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const Header = () => {
@@ -10,10 +11,10 @@ const Header = () => {
             </button>
         </div>
         <nav class="mt-4" v-if="isAuthenticated">
-            <router-link to="/clients" class="mr-4 hover:underline">Clients</router-link>
-            <router-link to="/agents" class="mr-4 hover:underline">Agents</router-link>
-            <router-link to="/destinataires" class="mr-4 hover:underline">Destinataires</router-link>
-            <router-link to="/transactions" class="hover:underline">Transactions</router-link>
+            <Link href="/agent" class="mr-4 hover:underline">Agents</Link>
+            <Link href="/clients" class="mr-4 hover:underline">Clients</Link>
+            <Link href="/destinataires" class="mr-4 hover:underline">Destinataires</Link>
+            <Link href="/transaction" class="hover:underline">Transactions</Link>
         </nav>
   </header>
   )

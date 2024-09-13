@@ -4,6 +4,7 @@ import Header from '../components/header';
 
 const Page = () => {
     const [trans, setTrans] = useState([]);
+    
     const [nouvelleTransaction, setNouvelleTransaction] = useState({
         montant: '',
         nomBeneficiaire: '',
