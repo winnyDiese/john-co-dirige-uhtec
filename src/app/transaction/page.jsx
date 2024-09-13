@@ -88,8 +88,8 @@ const Page = () => {
                 <div className="px-64">
                     <h2 className="text-3xl font-bold mb-4">TRANSACTIONS</h2>
                     <div className="bg-white shadow-md rounded-lg p-6 mb-8">
-                        <h3 className="text-xl font-semibold mb-4">Ajouter une transaction</h3>
-                        <form className="space-y-4" onSubmit={handleSubmit}>
+                        <h3 className="text-xl font-semibold mb-4 ">Ajouter une transaction</h3>
+                        <form className="space-y-4 text-sm" onSubmit={handleSubmit}>
                             <div>
                                 <label htmlFor="montant" className="block text-sm font-medium text-gray-700">Montant</label>
                                 <input
